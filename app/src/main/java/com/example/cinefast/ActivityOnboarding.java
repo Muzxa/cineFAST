@@ -1,6 +1,9 @@
 package com.example.cinefast;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class ActivityOnboarding extends AppCompatActivity {
 
+    Button onboardingButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +28,17 @@ public class ActivityOnboarding extends AppCompatActivity {
         init();
     }
 
+
     private void init()
     {
-
+        onboardingButton = findViewById(R.id.button_onboarding);
+        onboardingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(ActivityOnboarding.this, ActivityMovieList.class);
+                startActivity(intent);
+            }
+        });
     }
 }
