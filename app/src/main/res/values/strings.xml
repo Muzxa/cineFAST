@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">cineFAST</string>
     <string name="cinefast_logo_content_description">cineFAST Logo</string>
+    <string name="cinefast_onboarding_title">Explore now to experience the benefits</string>
+    <string name="cinefast_onboarding_text">Book seats instantly, skip lines, and enjoy movies faster with cineFAST.</string>
+    <string name="cinefast_onboarding_button_text">Get Started</string>
+    <string name="cinefast_onboarding_background_content_description">CineFAST onboarding screen background</string>
 </resources>

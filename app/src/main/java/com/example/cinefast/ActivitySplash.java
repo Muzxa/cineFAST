@@ -1,6 +1,8 @@
 package com.example.cinefast;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
@@ -37,5 +39,11 @@ public class ActivitySplash extends AppCompatActivity {
 
         cinefastBranding.startAnimation(translateAnimation);
         cinefastLogo.startAnimation(fadeAnimation);
+
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(ActivitySplash.this, ActivityOnboarding.class);
+            startActivity(intent);
+            finish();
+        }, 5000);
     }
 }

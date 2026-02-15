@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <!-- Background -->
+    <ImageView
+        android:id="@+id/iv_onboarding_background"
+        android:contentDescription="@string/cinefast_onboarding_background_content_description"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cinefast_onboarding_background" />
+
+    <!-- Gradient overlay -->
+    <ImageView
+        android:contentDescription="@string/cinefast_onboarding_background_content_description"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/cinefast_onboarding_background_gradient" />
+
+    <!-- Content at the bottom -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cinefast_onboarding_title"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:padding="12dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cinefast_onboarding_text"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:padding="20dp"/>
+
+        <Button
+            android:id="@+id/button_onboarding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cinefast_onboarding_button_text"
+            android:textSize="20sp"
+            android:backgroundTint="@color/red"
+            android:layout_marginTop="12dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
