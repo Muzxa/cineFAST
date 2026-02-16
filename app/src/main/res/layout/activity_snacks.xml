@@ -18,7 +18,7 @@
             >
             <ImageView
                 android:contentDescription="@string/cinefast_logo_content_description"
-                android:layout_margin="12sp"
+                android:layout_margin="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/cinefast_branding"
@@ -27,8 +27,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12sp"
-                android:layout_marginLeft="12sp"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="12dp"
                 android:text="Select Items"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
@@ -40,26 +40,27 @@
                 android:textStyle="bold"
                 android:text="Snacks And Drinks"
                 android:textSize="20sp"
-                android:layout_margin="12sp"
+                android:layout_margin="12dp"
                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12sp"
+                android:layout_margin="12dp"
                 android:background="@color/navy_blue"
                 android:orientation="horizontal"
                 >
                 <ImageView
-                    android:layout_width="0sp"
+                    android:contentDescription="Image of popcorn at cineFAST"
+                    android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="100sp"
-                    android:layout_margin="12sp"
+                    android:layout_height="100dp"
+                    android:layout_margin="12dp"
                     android:src="@drawable/popcorn"
                     />
 
                 <LinearLayout
-                    android:layout_width="0sp"
+                    android:layout_width="0dp"
                     android:layout_weight="4"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -74,27 +75,27 @@
                         <TextView
                             android:id="@+id/tv_popcorn_title"
                             android:layout_height="wrap_content"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="Popcorn"
                             android:textStyle="bold"
                             android:textSize="20sp"
-                            android:layout_marginLeft="12sp"
-                            android:layout_marginTop="12sp"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginTop="12dp"
                             android:textColor="@color/white"
                             />
 
                         <TextView
                             android:id="@+id/tv_popcorn_price"
                             android:layout_height="wrap_content"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="$ 9.99"
                             android:textStyle="bold"
                             android:textSize="20sp"
                             android:textAlignment="textEnd"
-                            android:layout_marginRight="12sp"
-                            android:layout_marginTop="12sp"
+                            android:layout_marginRight="12dp"
+                            android:layout_marginTop="12dp"
                             android:textColor="@color/white"
                             />
 
@@ -109,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="Large | Buttered"
-                        android:layout_marginLeft="12sp"
+                        android:layout_marginLeft="12dp"
                         android:textColor="@color/white"
                         />
                     <LinearLayout
@@ -118,26 +119,26 @@
                         >
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/remove_popcorn"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/white"
                             android:textColor="@color/black"
-                            android:layout_margin="8sp"
+                            android:layout_margin="8dp"
 
-                            android:padding="0sp"
+                            android:padding="0dp"
                             android:text=""
 
                             app:icon="@drawable/remove_from_cart"
                             app:iconTint="@color/black"
                             app:iconPadding="0dp"
-                            app:iconSize="28sp"
+                            app:iconSize="28dp"
                             app:iconGravity="textStart"
-                            app:cornerRadius="10sp"
+                            app:cornerRadius="10dp"
                             />
                         <EditText
                             android:id="@+id/et_popcorn_quantity"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="0"
@@ -147,40 +148,40 @@
                             android:textAlignment="center"
                             android:inputType="number"
 
-                            android:layout_marginRight="8sp"
-                            android:layout_marginBottom="8sp"
-                            android:layout_marginTop="8sp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
 
                             />
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/add_popcorn"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
 
                             android:backgroundTint="@color/red"
-                            android:layout_marginRight="8sp"
-                            android:layout_marginBottom="8sp"
-                            android:layout_marginTop="8sp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
 
-                            android:padding="0sp"
+                            android:padding="0dp"
                             android:text=""
 
                             app:icon="@drawable/add_to_cart"
                             app:iconTint="@color/white"
                             app:iconPadding="0dp"
-                            app:iconSize="28sp"
+                            app:iconSize="28dp"
                             app:iconGravity="textStart"
-                            app:cornerRadius="10sp"
+                            app:cornerRadius="10dp"
                             />
 
-                            <View
-                                android:layout_width="0sp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="3"
-                                >
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            >
 
-                            </View>
+                        </View>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -188,20 +189,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12sp"
+                android:layout_margin="12dp"
                 android:background="@color/navy_blue"
                 android:orientation="horizontal"
                 >
                 <ImageView
-                    android:layout_width="0sp"
+                    android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="100sp"
-                    android:layout_margin="12sp"
+                    android:layout_height="100dp"
+                    android:layout_margin="12dp"
                     android:src="@drawable/nachos"
                     />
 
                 <LinearLayout
-                    android:layout_width="0sp"
+                    android:layout_width="0dp"
                     android:layout_weight="4"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -216,27 +217,27 @@
                         <TextView
                             android:id="@+id/tv_nachos_title"
                             android:layout_height="wrap_content"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="Nachos"
                             android:textStyle="bold"
                             android:textSize="20sp"
-                            android:layout_marginLeft="12sp"
-                            android:layout_marginTop="12sp"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginTop="12dp"
                             android:textColor="@color/white"
                             />
 
                         <TextView
                             android:id="@+id/tv_nachos_price"
                             android:layout_height="wrap_content"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="$ 9.99"
                             android:textStyle="bold"
                             android:textSize="20sp"
                             android:textAlignment="textEnd"
-                            android:layout_marginRight="12sp"
-                            android:layout_marginTop="12sp"
+                            android:layout_marginRight="12dp"
+                            android:layout_marginTop="12dp"
                             android:textColor="@color/white"
                             />
 
@@ -251,7 +252,7 @@
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="Large | With Cheese And Salsa"
-                        android:layout_marginLeft="12sp"
+                        android:layout_marginLeft="12dp"
                         android:textColor="@color/white"
                         />
                     <LinearLayout
@@ -260,26 +261,26 @@
                         >
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/remove_nachos"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/white"
                             android:textColor="@color/black"
-                            android:layout_margin="8sp"
+                            android:layout_margin="8dp"
 
-                            android:padding="0sp"
+                            android:padding="0dp"
                             android:text=""
 
                             app:icon="@drawable/remove_from_cart"
                             app:iconTint="@color/black"
                             app:iconPadding="0dp"
-                            app:iconSize="28sp"
+                            app:iconSize="28dp"
                             app:iconGravity="textStart"
-                            app:cornerRadius="10sp"
+                            app:cornerRadius="10dp"
                             />
                         <EditText
                             android:id="@+id/et_nachos_quantity"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="0"
@@ -289,35 +290,35 @@
                             android:textAlignment="center"
                             android:inputType="number"
 
-                            android:layout_marginRight="8sp"
-                            android:layout_marginBottom="8sp"
-                            android:layout_marginTop="8sp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
 
                             />
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/add_nachos"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
 
                             android:backgroundTint="@color/red"
-                            android:layout_marginRight="8sp"
-                            android:layout_marginBottom="8sp"
-                            android:layout_marginTop="8sp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
 
-                            android:padding="0sp"
+                            android:padding="0dp"
                             android:text=""
 
                             app:icon="@drawable/add_to_cart"
                             app:iconTint="@color/white"
                             app:iconPadding="0dp"
-                            app:iconSize="28sp"
+                            app:iconSize="28dp"
                             app:iconGravity="textStart"
-                            app:cornerRadius="10sp"
+                            app:cornerRadius="10dp"
                             />
 
                         <View
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             >
@@ -330,20 +331,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12sp"
+                android:layout_margin="12dp"
                 android:background="@color/navy_blue"
                 android:orientation="horizontal"
                 >
                 <ImageView
-                    android:layout_width="0sp"
+                    android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="100sp"
-                    android:layout_margin="12sp"
+                    android:layout_height="100dp"
+                    android:layout_margin="12dp"
                     android:src="@drawable/fries"
                     />
 
                 <LinearLayout
-                    android:layout_width="0sp"
+                    android:layout_width="0dp"
                     android:layout_weight="4"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -358,27 +359,27 @@
                         <TextView
                             android:id="@+id/tv_fries_title"
                             android:layout_height="wrap_content"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="French Fries"
                             android:textStyle="bold"
                             android:textSize="20sp"
-                            android:layout_marginLeft="12sp"
-                            android:layout_marginTop="12sp"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginTop="12dp"
                             android:textColor="@color/white"
                             />
 
                         <TextView
                             android:id="@+id/tv_fries_price"
                             android:layout_height="wrap_content"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="$ 9.99"
                             android:textStyle="bold"
                             android:textSize="20sp"
                             android:textAlignment="textEnd"
-                            android:layout_marginRight="12sp"
-                            android:layout_marginTop="12sp"
+                            android:layout_marginRight="12dp"
+                            android:layout_marginTop="12dp"
                             android:textColor="@color/white"
                             />
 
@@ -393,7 +394,7 @@
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="Large | Salted"
-                        android:layout_marginLeft="12sp"
+                        android:layout_marginLeft="12dp"
                         android:textColor="@color/white"
                         />
                     <LinearLayout
@@ -402,26 +403,26 @@
                         >
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/remove_fries"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/white"
                             android:textColor="@color/black"
-                            android:layout_margin="8sp"
+                            android:layout_margin="8dp"
 
-                            android:padding="0sp"
+                            android:padding="0dp"
                             android:text=""
 
                             app:icon="@drawable/remove_from_cart"
                             app:iconTint="@color/black"
                             app:iconPadding="0dp"
-                            app:iconSize="28sp"
+                            app:iconSize="28dp"
                             app:iconGravity="textStart"
-                            app:cornerRadius="10sp"
+                            app:cornerRadius="10dp"
                             />
                         <EditText
                             android:id="@+id/et_fries_quantity"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="0"
@@ -431,35 +432,35 @@
                             android:textAlignment="center"
                             android:inputType="number"
 
-                            android:layout_marginRight="8sp"
-                            android:layout_marginBottom="8sp"
-                            android:layout_marginTop="8sp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
 
                             />
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/add_fries"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
 
                             android:backgroundTint="@color/red"
-                            android:layout_marginRight="8sp"
-                            android:layout_marginBottom="8sp"
-                            android:layout_marginTop="8sp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
 
-                            android:padding="0sp"
+                            android:padding="0dp"
                             android:text=""
 
                             app:icon="@drawable/add_to_cart"
                             app:iconTint="@color/white"
                             app:iconPadding="0dp"
-                            app:iconSize="28sp"
+                            app:iconSize="28dp"
                             app:iconGravity="textStart"
-                            app:cornerRadius="10sp"
+                            app:cornerRadius="10dp"
                             />
 
                         <View
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             >
@@ -472,20 +473,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12sp"
+                android:layout_margin="12dp"
                 android:background="@color/navy_blue"
                 android:orientation="horizontal"
                 >
                 <ImageView
-                    android:layout_width="0sp"
+                    android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="100sp"
-                    android:layout_margin="12sp"
+                    android:layout_height="100dp"
+                    android:layout_margin="12dp"
                     android:src="@drawable/hot_dogs"
                     />
 
                 <LinearLayout
-                    android:layout_width="0sp"
+                    android:layout_width="0dp"
                     android:layout_weight="4"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -500,27 +501,27 @@
                         <TextView
                             android:id="@+id/tv_hot_dogs_title"
                             android:layout_height="wrap_content"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="Hot Dogs"
                             android:textStyle="bold"
                             android:textSize="20sp"
-                            android:layout_marginLeft="12sp"
-                            android:layout_marginTop="12sp"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginTop="12dp"
                             android:textColor="@color/white"
                             />
 
                         <TextView
                             android:id="@+id/tv_hot_dogs_price"
                             android:layout_height="wrap_content"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:text="$ 9.99"
                             android:textStyle="bold"
                             android:textSize="20sp"
                             android:textAlignment="textEnd"
-                            android:layout_marginRight="12sp"
-                            android:layout_marginTop="12sp"
+                            android:layout_marginRight="12dp"
+                            android:layout_marginTop="12dp"
                             android:textColor="@color/white"
                             />
 
@@ -535,8 +536,8 @@
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="Large | With Mustard and Ketchup"
-                        android:layout_marginLeft="12sp"
-                        android:layout_marginRight="12sp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
                         android:textColor="@color/white"
                         />
                     <LinearLayout
@@ -545,26 +546,26 @@
                         >
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/remove_hot_dogs"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/white"
                             android:textColor="@color/black"
-                            android:layout_margin="8sp"
+                            android:layout_margin="8dp"
 
-                            android:padding="0sp"
+                            android:padding="0dp"
                             android:text=""
 
                             app:icon="@drawable/remove_from_cart"
                             app:iconTint="@color/black"
                             app:iconPadding="0dp"
-                            app:iconSize="28sp"
+                            app:iconSize="28dp"
                             app:iconGravity="textStart"
-                            app:cornerRadius="10sp"
+                            app:cornerRadius="10dp"
                             />
                         <EditText
                             android:id="@+id/et_hot_dogs_quantity"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="0"
@@ -574,35 +575,35 @@
                             android:textAlignment="center"
                             android:inputType="number"
 
-                            android:layout_marginRight="8sp"
-                            android:layout_marginBottom="8sp"
-                            android:layout_marginTop="8sp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
 
                             />
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/add_hot_dogs"
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
 
                             android:backgroundTint="@color/red"
-                            android:layout_marginRight="8sp"
-                            android:layout_marginBottom="8sp"
-                            android:layout_marginTop="8sp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
 
-                            android:padding="0sp"
+                            android:padding="0dp"
                             android:text=""
 
                             app:icon="@drawable/add_to_cart"
                             app:iconTint="@color/white"
                             app:iconPadding="0dp"
-                            app:iconSize="28sp"
+                            app:iconSize="28dp"
                             app:iconGravity="textStart"
-                            app:cornerRadius="10sp"
+                            app:cornerRadius="10dp"
                             />
 
                         <View
-                            android:layout_width="0sp"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             >
@@ -616,11 +617,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="12sp"
+                android:layout_margin="12dp"
                 >
 
                 <Button
-                    android:layout_width="0sp"
+                    android:id="@+id/button_snacks_continue"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/red"

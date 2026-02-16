@@ -11,6 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CineFAST">
         <activity
+            android:name=".ActivitySummary"
+            android:exported="false"
+            android:label="@string/title_activity_summary"
+            android:theme="@style/Theme.CineFAST.NoActionBar" />
+        <activity
             android:name=".ActivitySnacks"
             android:exported="false" />
         <activity

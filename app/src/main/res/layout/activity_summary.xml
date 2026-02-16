@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivitySummary">
+
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <LinearLayout
+            android:id="@+id/layout_summary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12sp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_summary_back"
+
+                    android:layout_width="0sp"
+
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/transparent"
+
+                    app:icon="@drawable/back_button"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0sp"
+                    app:iconTint="@color/white" />
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+
+                    android:text="@string/booking_details"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12sp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12sp"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/iv_summary_poster"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="150sp"
+                        android:src="@drawable/oppenheimer" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="12sp"
+
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_summary_title"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:autoSizeTextType="uniform"
+                        android:text="Oppenheimer"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_summary_subtitle"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12sp"
+
+                        android:autoSizeTextType="uniform"
+                        android:text="Thriller | 180min"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12sp"
+                android:layout_marginRight="12sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:text="Theater"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:text="Hall"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:text="Date"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:text="Time"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12sp"
+                android:layout_marginRight="12sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_summary_theater"
+
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:text="Stars (90Mall)"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_summary_hall"
+
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:text="1st"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_summary_date"
+
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:text="1st Jan 1900"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_summary_time"
+
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:text="20:15"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="12sp"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:id="@+id/layout_summary_tickets"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12sp"
+
+                    android:autoSizeTextType="uniform"
+                    android:text="Tickets"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_summary_snacks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12sp"
+                    android:layout_marginVertical="12sp"
+
+                    android:autoSizeTextType="uniform"
+                    android:text="Snacks"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="12sp"
+                android:background="@color/white" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12sp"
+                    android:layout_marginVertical="12sp"
+                    android:layout_weight="1"
+
+                    android:autoSizeTextType="uniform"
+                    android:text="TOTAL"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_summary_total"
+
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12sp"
+                    android:layout_marginVertical="12sp"
+                    android:layout_weight="1"
+
+                    android:autoSizeTextType="uniform"
+                    android:text="$ 95.49"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_summary_send_tickets"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12sp"
+
+                android:text="Send Tickets"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:textColor="@color/white"
+                android:autoSizeTextType="uniform"
+
+                android:backgroundTint="@color/red"
+
+                />
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

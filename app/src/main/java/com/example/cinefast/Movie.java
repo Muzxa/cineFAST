@@ -11,13 +11,15 @@ public class Movie implements Parcelable {
     private String genre;
     private int cinema;
     private String showTime;
-    public Movie(String name, String runtime, String genre, int cinema, String showTime)
+    private int posterId;
+    public Movie(String name, String runtime, String genre, int cinema, String showTime, int posterId)
     {
         this.name = name;
         this.runtime = runtime;
         this.genre = genre;
         this.cinema = cinema;
         this.showTime = showTime;
+        this.posterId = posterId;
     }
 
     protected Movie(Parcel in)
@@ -27,6 +29,7 @@ public class Movie implements Parcelable {
         genre = in.readString();
         cinema = in.readInt();
         showTime = in.readString();
+        posterId = in.readInt();
     }
 
     @Override
@@ -41,6 +44,7 @@ public class Movie implements Parcelable {
         dest.writeString(genre);
         dest.writeInt(cinema);
         dest.writeString(showTime);
+        dest.writeInt(posterId);
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<>() {
@@ -93,5 +97,13 @@ public class Movie implements Parcelable {
 
     public void setShowTime(String showTime) {
         this.showTime = showTime;
+    }
+
+    public int getPosterId() {
+        return posterId;
+    }
+
+    public void setPosterId(int posterId) {
+        this.posterId = posterId;
     }
 }

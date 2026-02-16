@@ -48,7 +48,7 @@ public class ActivityMovieList extends AppCompatActivity {
     private void initOppenheimer() {
        oppenheimerBookNow = findViewById(R.id.button_oppenheimer_book_seats);
        oppenheimerTrailer  = findViewById(R.id.button_oppenheimer_trailer);
-       Movie oppenheimer = new Movie("Oppenheimer", "180 mins", "Thriller", 7, "15:15");
+       Movie oppenheimer = new Movie("Oppenheimer", "180 mins", "Thriller", 7, "15:15", R.drawable.oppenheimer);
        String oppenheimerTrailerURL = "https://www.youtube.com/watch?v=bK6ldnjE3Y0&pp=ygUTb3BwZW5oZWltZXIgdHJhaWxlcg%3D%3D";
 
        initMovie(oppenheimerBookNow, oppenheimerTrailer, oppenheimerTrailerURL, oppenheimer);
@@ -58,7 +58,7 @@ public class ActivityMovieList extends AppCompatActivity {
     {
         twelveAngryMenTrailer = findViewById(R.id.button_12_angry_men_trailer);
         twelveAngryMenBookNow = findViewById(R.id.button_12_angry_men_book_seats);
-        Movie twelveAngryMen = new Movie("Twelve Angry Men", "96 mins","Crime", 4, "21:00");
+        Movie twelveAngryMen = new Movie("Twelve Angry Men", "96 mins","Crime", 4, "21:00", R.drawable.twelve_angry_men);
         String twelveAngryMenTrailerURL = "https://www.youtube.com/watch?v=TEN-2uTi2c0";
 
        initMovie(twelveAngryMenBookNow, twelveAngryMenTrailer, twelveAngryMenTrailerURL, twelveAngryMen);
@@ -68,7 +68,7 @@ public class ActivityMovieList extends AppCompatActivity {
     {
         theDarkKnightTrailer = findViewById(R.id.button_the_dark_knight_trailer);
         theDarkKnightBookNow = findViewById(R.id.button_the_dark_knight_book_seats);
-        Movie theDarkKnight = new Movie("The Dark Knight", "152 mins", "Action", 9, "17:45");
+        Movie theDarkKnight = new Movie("The Dark Knight", "152 mins", "Action", 9, "17:45",  R.drawable.the_dark_knight);
 
         String theDarkKnightTrailerURL = "https://www.youtube.com/watch?v=kmJLuwP3MbY&pp=ygUXdGhlIGRhcmsga25pZ2h0IHRyYWlsZXI%3D";
 
@@ -79,7 +79,7 @@ public class ActivityMovieList extends AppCompatActivity {
     {
         silenceOfTheLambsTrailer = findViewById(R.id.button_silence_of_the_lambs_trailer);
         silenceOfTheLambsBookNow = findViewById(R.id.button_silence_of_the_lambs_book_seats);
-        Movie silenceOfTheLambs = new Movie("Silence of The Lambs", "118 mins", "Crime", 2, "19:00");
+        Movie silenceOfTheLambs = new Movie("Silence of The Lambs", "118 mins", "Crime", 2, "19:00",  R.drawable.silence_of_the_lambs);
 
         String silenceOfTheLambsTrailerURL = "https://www.youtube.com/watch?v=6iB21hsprAQ&pp=ygUcc2lsZW5jZSBvZiB0aGUgbGFtYnMgdHJhaWxlcg%3D%3D";
 

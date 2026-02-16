@@ -16,6 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.content.ContextCompat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,8 +24,9 @@ public class ActivitySeatSelection extends AppCompatActivity {
 
     Button backButton, getSnacksButton, bookSeatsButton;
     TextView movieTitle, movieSubtitle, movieHall, movieDate, movieTime;
-
-    private final List<Seat> selectedSeats = new java.util.ArrayList<>();
+    private final ArrayList<Seat> selectedSeats = new ArrayList<>();
+    Movie movie;
+    String showDate;
     int ticketPrice = 16;
 
     @Override
@@ -44,7 +46,6 @@ public class ActivitySeatSelection extends AppCompatActivity {
     private void init()
     {
 
-
         backButton = findViewById(R.id.button_seat_selection_back);
         backButton.setOnClickListener(v -> finish());
 
@@ -63,6 +64,23 @@ public class ActivitySeatSelection extends AppCompatActivity {
             if(!selectedSeats.isEmpty())
             {
                 Intent intent = new Intent(ActivitySeatSelection.this, ActivitySnacks.class);
+                intent.putExtra("date", showDate);
+                intent.putExtra("movie", movie);
+                intent.putParcelableArrayListExtra("seats", selectedSeats);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(this, "Please select a seat before proceeding", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        bookSeatsButton.setOnClickListener(v -> {
+            if(!selectedSeats.isEmpty())
+            {
+                Intent intent = new Intent(ActivitySeatSelection.this, ActivitySummary.class);
+                intent.putExtra("date", showDate);
+                intent.putExtra("movie", movie);
+                intent.putParcelableArrayListExtra("seats", selectedSeats);
                 startActivity(intent);
             }
             else {
@@ -80,8 +98,8 @@ public class ActivitySeatSelection extends AppCompatActivity {
         movieHall = findViewById(R.id.tv_seat_selection_hall);
         movieTime = findViewById(R.id.tv_seat_selection_time);
 
-        String showDate = getIntent().getStringExtra("date");
-        Movie movie = getIntent().getParcelableExtra("movie");
+        showDate = getIntent().getStringExtra("date");
+        movie = getIntent().getParcelableExtra("movie");
 
         if(movie != null && showDate != null)
         {

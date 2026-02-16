@@ -1,5 +1,6 @@
 package com.example.cinefast;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +14,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+
 public class ActivitySnacks extends AppCompatActivity {
 
     Button addPopcorn, removePopcorn;
@@ -23,8 +26,8 @@ public class ActivitySnacks extends AppCompatActivity {
     TextView popcornPrice, nachosPrice, friesPrice, hotDogsPrice;
     TextView popcornTitle, nachosTitle, friesTitle, hotDogsTitle;
     TextView popcornDescription, nachosDescription, friesDescription,  hotDogsDescription;
-
     Snack popcorn, nachos, fries, hotDogs;
+    Button continueButton;
 
     int QUANTITY_LIMIT = 10;
 
@@ -43,6 +46,7 @@ public class ActivitySnacks extends AppCompatActivity {
         initNachos();
         initFries();
         initHotDogs();
+        initButtonHandler();
     }
 
     private void initPopcorn()
@@ -160,5 +164,41 @@ public class ActivitySnacks extends AppCompatActivity {
             @Override public void afterTextChanged(Editable s) {}
         });
 
+    }
+
+    private void initButtonHandler()
+    {
+        continueButton = findViewById(R.id.button_snacks_continue);
+        String showDate = getIntent().getStringExtra("date");
+        Movie movie = getIntent().getParcelableExtra("movie");
+        ArrayList<Seat> selectedSeats = getIntent().getParcelableArrayListExtra("seats");
+
+        continueButton.setOnClickListener(v -> {
+            ArrayList<Snack> purchasedSnacks = new ArrayList<>();
+
+            if(popcorn != null && popcorn.getQuantity() > 0)
+            {
+                purchasedSnacks.add(popcorn);
+            }
+            if(nachos != null && nachos.getQuantity() > 0)
+            {
+                purchasedSnacks.add(nachos);
+            }
+            if(fries != null && fries.getQuantity() > 0)
+            {
+                purchasedSnacks.add(fries);
+            }
+            if(hotDogs != null && hotDogs.getQuantity() > 0)
+            {
+                purchasedSnacks.add(hotDogs);  // Fixed: was popcorn
+            }
+
+            Intent intent = new Intent(ActivitySnacks.this, ActivitySummary.class);
+            intent.putExtra("date", showDate);
+            intent.putExtra("movie", movie);
+            intent.putParcelableArrayListExtra("seats", selectedSeats);
+            intent.putParcelableArrayListExtra("snacks", purchasedSnacks);
+            startActivity(intent);
+        });
     }
 }
