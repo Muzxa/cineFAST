@@ -259,6 +259,7 @@
 
             >
             <Button
+                android:id="@+id/button_seat_selection_book_seats"
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -274,6 +275,7 @@
 
 
             <Button
+                android:id="@+id/button_seat_selection_get_snacks"
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -1,5 +1,6 @@
 package com.example.cinefast;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -20,8 +21,7 @@ import java.util.List;
 
 public class ActivitySeatSelection extends AppCompatActivity {
 
-    Button backButton;
-
+    Button backButton, getSnacksButton, bookSeatsButton;
     TextView movieTitle, movieSubtitle, movieHall, movieDate, movieTime;
 
     private final List<Seat> selectedSeats = new java.util.ArrayList<>();
@@ -50,7 +50,25 @@ public class ActivitySeatSelection extends AppCompatActivity {
 
         initMovieInfo();
         initSeatSelector();
+        initButtonHandlers();
 
+    }
+
+    private void initButtonHandlers(){
+        bookSeatsButton = findViewById(R.id.button_seat_selection_book_seats);
+        getSnacksButton = findViewById(R.id.button_seat_selection_get_snacks);
+
+        getSnacksButton.setOnClickListener(v -> {
+
+            if(!selectedSeats.isEmpty())
+            {
+                Intent intent = new Intent(ActivitySeatSelection.this, ActivitySnacks.class);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(this, "Please select a seat before proceeding", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void initMovieInfo()
