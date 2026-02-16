@@ -48,41 +48,44 @@ public class ActivityMovieList extends AppCompatActivity {
     private void initOppenheimer() {
        oppenheimerBookNow = findViewById(R.id.button_oppenheimer_book_seats);
        oppenheimerTrailer  = findViewById(R.id.button_oppenheimer_trailer);
+       Movie oppenheimer = new Movie("Oppenheimer", "180 mins", "Thriller", 7, "15:15");
        String oppenheimerTrailerURL = "https://www.youtube.com/watch?v=bK6ldnjE3Y0&pp=ygUTb3BwZW5oZWltZXIgdHJhaWxlcg%3D%3D";
 
-       initMovie(oppenheimerBookNow, oppenheimerTrailer, oppenheimerTrailerURL);
+       initMovie(oppenheimerBookNow, oppenheimerTrailer, oppenheimerTrailerURL, oppenheimer);
     }
 
     private void initTwelveAngryMen()
     {
         twelveAngryMenTrailer = findViewById(R.id.button_12_angry_men_trailer);
         twelveAngryMenBookNow = findViewById(R.id.button_12_angry_men_book_seats);
-
+        Movie twelveAngryMen = new Movie("Twelve Angry Men", "96 mins","Crime", 4, "21:00");
         String twelveAngryMenTrailerURL = "https://www.youtube.com/watch?v=TEN-2uTi2c0";
 
-       initMovie(twelveAngryMenBookNow, twelveAngryMenTrailer, twelveAngryMenTrailerURL);
+       initMovie(twelveAngryMenBookNow, twelveAngryMenTrailer, twelveAngryMenTrailerURL, twelveAngryMen);
     }
 
     private void initTheDarkKnight()
     {
         theDarkKnightTrailer = findViewById(R.id.button_the_dark_knight_trailer);
         theDarkKnightBookNow = findViewById(R.id.button_the_dark_knight_book_seats);
+        Movie theDarkKnight = new Movie("The Dark Knight", "152 mins", "Action", 9, "17:45");
 
         String theDarkKnightTrailerURL = "https://www.youtube.com/watch?v=kmJLuwP3MbY&pp=ygUXdGhlIGRhcmsga25pZ2h0IHRyYWlsZXI%3D";
 
-        initMovie(theDarkKnightBookNow, theDarkKnightTrailer, theDarkKnightTrailerURL);
+        initMovie(theDarkKnightBookNow, theDarkKnightTrailer, theDarkKnightTrailerURL, theDarkKnight);
     }
 
     private void initSilenceOfTheLambs()
     {
         silenceOfTheLambsTrailer = findViewById(R.id.button_silence_of_the_lambs_trailer);
         silenceOfTheLambsBookNow = findViewById(R.id.button_silence_of_the_lambs_book_seats);
+        Movie silenceOfTheLambs = new Movie("Silence of The Lambs", "118 mins", "Crime", 2, "19:00");
 
         String silenceOfTheLambsTrailerURL = "https://www.youtube.com/watch?v=6iB21hsprAQ&pp=ygUcc2lsZW5jZSBvZiB0aGUgbGFtYnMgdHJhaWxlcg%3D%3D";
 
-        initMovie(silenceOfTheLambsBookNow, silenceOfTheLambsTrailer, silenceOfTheLambsTrailerURL);
+        initMovie(silenceOfTheLambsBookNow, silenceOfTheLambsTrailer, silenceOfTheLambsTrailerURL, silenceOfTheLambs);
     }
-    private void initMovie(Button bookNowButton, Button trailerButton, String trailerURL)
+    private void initMovie(Button bookNowButton, Button trailerButton, String trailerURL, Movie movie)
     {
         trailerButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(trailerURL));
@@ -93,6 +96,15 @@ public class ActivityMovieList extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(trailerURL)));
             }
         });
+
+        bookNowButton.setOnClickListener(v -> {
+
+            Intent intent = new Intent(ActivityMovieList.this, ActivitySeatSelection.class);
+            String formattedDate = showDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+            intent.putExtra("date", formattedDate);
+            intent.putExtra("movie", movie);
+            startActivity(intent);
+        });
     }
 
     private void initDateRadioButtons(){
@@ -102,7 +114,6 @@ public class ActivityMovieList extends AppCompatActivity {
         radioButtonTomorrow = findViewById(R.id.rb_movie_list_2);
 
         datePickerGroup.setOnCheckedChangeListener((g, checkedId) -> {
-            RadioButton selected = findViewById(checkedId);
             if(checkedId == R.id.rb_movie_list_1)
             {
                showDate = showDate.minusDays(1);
