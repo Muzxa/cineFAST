@@ -4,15 +4,19 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
+import java.util.Date;
+
 public class Movie implements Parcelable {
 
     private String name;
     private String runtime;
     private String genre;
+    private String trailerURL;
     private int cinema;
     private String showTime;
     private int posterId;
-    public Movie(String name, String runtime, String genre, int cinema, String showTime, int posterId)
+    private Date releaseDate;
+    public Movie(String name, String runtime, String genre, int cinema, String showTime, int posterId, String trailerURL, Date releaseDate)
     {
         this.name = name;
         this.runtime = runtime;
@@ -20,6 +24,8 @@ public class Movie implements Parcelable {
         this.cinema = cinema;
         this.showTime = showTime;
         this.posterId = posterId;
+        this.trailerURL = trailerURL;
+        this.releaseDate = releaseDate;
     }
 
     protected Movie(Parcel in)
@@ -30,6 +36,8 @@ public class Movie implements Parcelable {
         cinema = in.readInt();
         showTime = in.readString();
         posterId = in.readInt();
+        trailerURL = in.readString();
+        releaseDate = new Date(in.readLong());
     }
 
     @Override
@@ -45,6 +53,8 @@ public class Movie implements Parcelable {
         dest.writeInt(cinema);
         dest.writeString(showTime);
         dest.writeInt(posterId);
+        dest.writeString(trailerURL);
+        dest.writeLong(releaseDate != null ? releaseDate.getTime() : -1);
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<>() {
@@ -103,7 +113,23 @@ public class Movie implements Parcelable {
         return posterId;
     }
 
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
     public void setPosterId(int posterId) {
         this.posterId = posterId;
+    }
+
+    public String getTrailerURL() {
+        return trailerURL;
+    }
+
+    public void setTrailerURL(String trailerURL) {
+        this.trailerURL = trailerURL;
     }
 }
