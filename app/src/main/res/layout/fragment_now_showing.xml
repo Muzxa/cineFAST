@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentNowShowing"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Date"
+        android:layout_margin="12dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        />
+
+    <RadioGroup
+        android:id="@+id/rg_date_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="8dp"
+        >
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rb_movie_list_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:padding="16dp"
+            android:text="Today"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="12dp"
+            android:checked="true"
+
+            />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rb_movie_list_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:padding="16dp"
+            android:text="Tomorrow"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+
+            />
+    </RadioGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/now_showing_recycler_view"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+
+</LinearLayout>
