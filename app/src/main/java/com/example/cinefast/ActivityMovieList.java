@@ -1,31 +1,24 @@
 package com.example.cinefast;
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.Toast;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.viewpager2.widget.ViewPager2;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 public class ActivityMovieList extends AppCompatActivity {
-    Button oppenheimerTrailer, oppenheimerBookNow;
-    Button twelveAngryMenTrailer, twelveAngryMenBookNow;
-    Button theDarkKnightTrailer, theDarkKnightBookNow;
-    Button silenceOfTheLambsTrailer, silenceOfTheLambsBookNow;
-    RadioGroup datePickerGroup;
-    RadioButton radioButtonToday, radioButtonTomorrow;
-    LocalDate showDate;
+
+    TabLayout movieListTabLayout;
+    TabItem movieListTabLayoutNowShowing, getMovieListTabLayoutComingSoon;
+    ViewPager2 movieListViewPager;
+    MovieListViewPagerAdapter movieListViewPagerAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,95 +30,45 @@ public class ActivityMovieList extends AppCompatActivity {
             return insets;
         });
 
-        initOppenheimer();
-        initTwelveAngryMen();
-        initTheDarkKnight();
-        initSilenceOfTheLambs();
-
-        initDateRadioButtons();
+        init();
+        attachTabSelectedListener();
     }
 
-    private void initOppenheimer() {
-       oppenheimerBookNow = findViewById(R.id.button_oppenheimer_book_seats);
-       oppenheimerTrailer  = findViewById(R.id.button_oppenheimer_trailer);
-       Movie oppenheimer = new Movie("Oppenheimer", "180 mins", "Thriller", 7, "15:15", R.drawable.oppenheimer);
-       String oppenheimerTrailerURL = "https://www.youtube.com/watch?v=bK6ldnjE3Y0&pp=ygUTb3BwZW5oZWltZXIgdHJhaWxlcg%3D%3D";
-
-       initMovie(oppenheimerBookNow, oppenheimerTrailer, oppenheimerTrailerURL, oppenheimer);
-    }
-
-    private void initTwelveAngryMen()
+    public void init()
     {
-        twelveAngryMenTrailer = findViewById(R.id.button_12_angry_men_trailer);
-        twelveAngryMenBookNow = findViewById(R.id.button_12_angry_men_book_seats);
-        Movie twelveAngryMen = new Movie("Twelve Angry Men", "96 mins","Crime", 4, "21:00", R.drawable.twelve_angry_men);
-        String twelveAngryMenTrailerURL = "https://www.youtube.com/watch?v=TEN-2uTi2c0";
+        movieListTabLayout = findViewById(R.id.movie_list_tab_layout);
+        movieListTabLayoutNowShowing = findViewById(R.id.movie_list_tab_layout_now_showing);
+        getMovieListTabLayoutComingSoon = findViewById(R.id.movie_list_tab_layout_coming_soon);
 
-       initMovie(twelveAngryMenBookNow, twelveAngryMenTrailer, twelveAngryMenTrailerURL, twelveAngryMen);
+        movieListViewPager = findViewById(R.id.movie_list_view_pager);
+
+        movieListViewPagerAdapter = new MovieListViewPagerAdapter(this);
+        movieListViewPager.setAdapter(movieListViewPagerAdapter);
     }
 
-    private void initTheDarkKnight()
+    public void attachTabSelectedListener()
     {
-        theDarkKnightTrailer = findViewById(R.id.button_the_dark_knight_trailer);
-        theDarkKnightBookNow = findViewById(R.id.button_the_dark_knight_book_seats);
-        Movie theDarkKnight = new Movie("The Dark Knight", "152 mins", "Action", 9, "17:45",  R.drawable.the_dark_knight);
-
-        String theDarkKnightTrailerURL = "https://www.youtube.com/watch?v=kmJLuwP3MbY&pp=ygUXdGhlIGRhcmsga25pZ2h0IHRyYWlsZXI%3D";
-
-        initMovie(theDarkKnightBookNow, theDarkKnightTrailer, theDarkKnightTrailerURL, theDarkKnight);
-    }
-
-    private void initSilenceOfTheLambs()
-    {
-        silenceOfTheLambsTrailer = findViewById(R.id.button_silence_of_the_lambs_trailer);
-        silenceOfTheLambsBookNow = findViewById(R.id.button_silence_of_the_lambs_book_seats);
-        Movie silenceOfTheLambs = new Movie("Silence of The Lambs", "118 mins", "Crime", 2, "19:00",  R.drawable.silence_of_the_lambs);
-
-        String silenceOfTheLambsTrailerURL = "https://www.youtube.com/watch?v=6iB21hsprAQ&pp=ygUcc2lsZW5jZSBvZiB0aGUgbGFtYnMgdHJhaWxlcg%3D%3D";
-
-        initMovie(silenceOfTheLambsBookNow, silenceOfTheLambsTrailer, silenceOfTheLambsTrailerURL, silenceOfTheLambs);
-    }
-    private void initMovie(Button bookNowButton, Button trailerButton, String trailerURL, Movie movie)
-    {
-        trailerButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(trailerURL));
-            intent.setPackage("com.google.android.youtube");
-            try{
-                startActivity(intent);
-            } catch (ActivityNotFoundException e) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(trailerURL)));
+        movieListViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                movieListTabLayout.selectTab(movieListTabLayout.getTabAt(position));
             }
         });
 
-        bookNowButton.setOnClickListener(v -> {
-
-            Intent intent = new Intent(ActivityMovieList.this, ActivitySeatSelection.class);
-            String formattedDate = showDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
-            intent.putExtra("date", formattedDate);
-            intent.putExtra("movie", movie);
-            startActivity(intent);
-        });
-    }
-
-    private void initDateRadioButtons(){
-        showDate = LocalDate.now();
-        datePickerGroup = findViewById(R.id.rg_date_picker);
-        radioButtonToday = findViewById(R.id.rb_movie_list_1);
-        radioButtonTomorrow = findViewById(R.id.rb_movie_list_2);
-
-        datePickerGroup.setOnCheckedChangeListener((g, checkedId) -> {
-            if(checkedId == R.id.rb_movie_list_1)
-            {
-               showDate = showDate.minusDays(1);
+        movieListTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                movieListViewPager.setCurrentItem(tab.getPosition());
             }
-            else if(checkedId == R.id.rb_movie_list_2)
-            {
-                showDate = showDate.plusDays(1);
-            }
-            String formattedDate = showDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
-            String toastText = "Showing Movies On " + formattedDate;
-            Toast.makeText(this, toastText, Toast.LENGTH_LONG).show();
-        });
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
     }
 }

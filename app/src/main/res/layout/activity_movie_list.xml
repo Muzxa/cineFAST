@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityMovieList"
-    android:background="@color/black"
-    >
+    android:background="@color/black">
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -18,370 +18,50 @@
         >
         <ImageView
             android:contentDescription="@string/cinefast_logo_content_description"
-            android:layout_margin="12sp"
+            android:layout_margin="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/cinefast_branding"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Date"
-            android:layout_margin="12sp"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            />
 
-            <RadioGroup
-                android:id="@+id/rg_date_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-
-                <RadioButton
-                    android:id="@+id/rb_movie_list_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/red"
-                    android:padding="16sp"
-                    android:text="Today"
-                    android:textColor="@color/white"
-                    android:layout_marginLeft="12sp"
-                    android:layout_marginTop="12sp"
-                    android:checked="true"
-                    android:buttonTint="@color/white"
-                    />
-
-                <RadioButton
-                    android:id="@+id/rb_movie_list_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/red"
-                    android:padding="16sp"
-                    android:text="Tomorrow"
-                    android:textColor="@color/white"
-                    android:layout_marginLeft="12sp"
-                    android:layout_marginTop="12sp"
-                    android:buttonTint="@color/white"
-                    />
-            </RadioGroup>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:text="Now Showing"
-                android:textSize="20sp"
-                android:layout_margin="12sp"
-                />
-        
-            <LinearLayout
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/movie_list_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12sp"
-                android:background="@color/navy_blue"
-                android:orientation="horizontal"
+                android:layout_margin="8dp"
+                app:tabIndicatorColor="@color/red"
+                app:tabTextColor="@color/white"
+                app:tabSelectedTextColor="@color/red"
+                android:backgroundTint="@color/black"
                 >
-                <ImageView
-                    android:layout_width="0sp"
-                    android:layout_weight="1"
-                    android:layout_height="100sp"
-                    android:layout_margin="12sp"
-                    android:src="@drawable/the_dark_knight"
-                    />
 
-                <LinearLayout
-                    android:layout_width="0sp"
-                    android:layout_weight="4"
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/movie_list_tab_layout_now_showing"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    >
-                    <TextView
-                        android:id="@+id/tv_the_dark_knight_title"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="The Dark Knight"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:layout_marginLeft="12sp"
-                        android:layout_marginTop="12sp"
-                        android:textColor="@color/white"
-                        />
+                    android:text="Now Showing"
 
-                    <TextView
-                        android:id="@+id/tv_the_dark_knight_genre_runtime"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="Action / 152 min"
-                        android:layout_marginLeft="12sp"
-                        android:textColor="@color/white"
-                        />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-                        <Button
-                            android:id="@+id/button_the_dark_knight_book_seats"
-                            android:layout_width="0sp"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent"
-                            android:backgroundTint="@color/red"
-                            android:textSize="16sp"
-                            android:autoSizeTextType="uniform"
-                            android:text="Book Seats"
-                            android:textStyle="bold"
-                            android:textColor="@color/white"
-                            android:layout_margin="8sp"
-                            />
-                        <Button
-                            android:id="@+id/button_the_dark_knight_trailer"
-                            android:layout_width="0sp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/white"
-                            android:text="Trailer"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:autoSizeTextType="uniform"
-                            android:layout_marginRight="8sp"
-                            android:layout_marginBottom="8sp"
-                            android:layout_marginTop="8sp"
-                            />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
+                    />
 
-        <LinearLayout
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/movie_list_tab_layout_coming_soon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Coming Soon"
+                    />
+
+
+            </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/movie_list_view_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12sp"
-            android:background="@color/navy_blue"
-            android:orientation="horizontal"
-            >
-            <ImageView
-                android:layout_width="0sp"
-                android:layout_weight="1"
-                android:layout_height="100sp"
-                android:layout_margin="12sp"
-                android:src="@drawable/oppenheimer"
-                />
-
-            <LinearLayout
-                android:layout_width="0sp"
-                android:layout_weight="4"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:id="@+id/tv_oppenheimer_title"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Oppenheimer"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginLeft="12sp"
-                    android:layout_marginTop="12sp"
-                    android:textColor="@color/white"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_oppenheimer_genre_runtime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12sp"
-                    android:text="Thriller / 180 min"
-                    android:textColor="@color/white" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
-                    <Button
-                        android:id="@+id/button_oppenheimer_book_seats"
-                        android:layout_width="0sp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="@color/red"
-                        android:textSize="16sp"
-                        android:autoSizeTextType="uniform"
-                        android:text="Book Seats"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:layout_margin="8sp"
-                        />
-                    <Button
-                        android:id="@+id/button_oppenheimer_trailer"
-                        android:layout_width="0sp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
-                        android:text="Trailer"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:autoSizeTextType="uniform"
-                        android:layout_marginRight="8sp"
-                        android:layout_marginBottom="8sp"
-                        android:layout_marginTop="8sp"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12sp"
-            android:background="@color/navy_blue"
-            android:orientation="horizontal"
-            >
-            <ImageView
-                android:layout_width="0sp"
-                android:layout_weight="1"
-                android:layout_height="100sp"
-                android:layout_margin="12sp"
-                android:src="@drawable/twelve_angry_men"
-                />
-
-            <LinearLayout
-                android:layout_width="0sp"
-                android:layout_weight="4"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:id="@+id/tv_12_angry_men_title"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="12 Angry Men"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginLeft="12sp"
-                    android:layout_marginTop="12sp"
-                    android:textColor="@color/white"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_12_angry_men_genre_runtime"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Crime / 96 min"
-                    android:layout_marginLeft="12sp"
-                    android:textColor="@color/white"
-                    />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
-                    <Button
-                        android:id="@+id/button_12_angry_men_book_seats"
-                        android:layout_width="0sp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="@color/red"
-                        android:textSize="16sp"
-                        android:autoSizeTextType="uniform"
-                        android:text="Book Seats"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:layout_margin="8sp"
-                        />
-                    <Button
-                        android:id="@+id/button_12_angry_men_trailer"
-                        android:layout_width="0sp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
-                        android:text="Trailer"
-                        android:textSize="16sp"
-                        android:autoSizeTextType="uniform"
-                        android:textColor="@color/black"
-                        android:layout_marginRight="8sp"
-                        android:layout_marginBottom="8sp"
-                        android:layout_marginTop="8sp"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+            />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12sp"
-            android:background="@color/navy_blue"
-            android:orientation="horizontal"
-            >
-            <ImageView
-                android:layout_width="0sp"
-                android:layout_weight="1"
-                android:layout_height="100sp"
-                android:layout_margin="12sp"
-                android:src="@drawable/silence_of_the_lambs"
-                />
 
-            <LinearLayout
-                android:layout_width="0sp"
-                android:layout_weight="4"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:id="@+id/tv_silence_of_the_lambs_title"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Silence of The Lambs"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginLeft="12sp"
-                    android:layout_marginTop="12sp"
-                    android:textColor="@color/white"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_silence_of_the_lambs_runtime"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Crime / 118 min"
-                    android:layout_marginLeft="12sp"
-                    android:textColor="@color/white"
-                    />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
-                    <Button
-                        android:id="@+id/button_silence_of_the_lambs_book_seats"
-                        android:layout_width="0sp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="@color/red"
-                        android:textSize="16sp"
-                        android:autoSizeTextType="uniform"
-                        android:text="Book Seats"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:layout_margin="8sp"
-                        />
-                    <Button
-                        android:id="@+id/button_silence_of_the_lambs_trailer"
-                        android:layout_width="0sp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
-                        android:text="Trailer"
-                        android:textSize="16sp"
-                        android:autoSizeTextType="uniform"
-                        android:textColor="@color/black"
-                        android:layout_marginRight="8sp"
-                        android:layout_marginBottom="8sp"
-                        android:layout_marginTop="8sp"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
     </ScrollView>
 
