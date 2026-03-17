@@ -39,9 +39,9 @@ public class FragmentComingSoon extends Fragment {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
-            movies.add(new Movie("The Dark Knight", "152 mins", "Action", 1, "20:15", R.drawable.the_dark_knight, "https://www.youtube.com/watch?v=EXeTwQWrcwY", format.parse("2026-03-01")));
-            movies.add(new Movie("12 Angry Men", "96 mins", "Crime", 12, "15:30", R.drawable.twelve_angry_men, "https://www.youtube.com/watch?v=TEN-2uTi2c0", format.parse("2026-03-02")));
-            movies.add(new Movie("Saving Private Ryan", "169 mins", "War", 5, "13:00", R.drawable.saving_private_ryan, "https://www.youtube.com/watch?v=9CiW_DgxCnQ", format.parse("2026-03-03")));
+            movies.add(new Movie("The Dark Knight", "152 mins", "Action", 1, "20:15", R.drawable.the_dark_knight, "https://www.youtube.com/watch?v=EXeTwQWrcwY", format.parse("2026-12-01")));
+            movies.add(new Movie("12 Angry Men", "96 mins", "Crime", 12, "15:30", R.drawable.twelve_angry_men, "https://www.youtube.com/watch?v=TEN-2uTi2c0", format.parse("2026-12-02")));
+            movies.add(new Movie("Saving Private Ryan", "169 mins", "War", 5, "13:00", R.drawable.saving_private_ryan, "https://www.youtube.com/watch?v=9CiW_DgxCnQ", format.parse("2026-12-03")));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

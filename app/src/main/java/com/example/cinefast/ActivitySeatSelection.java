@@ -1,8 +1,11 @@
 package com.example.cinefast;
 
+import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -16,8 +19,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.content.ContextCompat;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class ActivitySeatSelection extends AppCompatActivity {
@@ -26,8 +32,9 @@ public class ActivitySeatSelection extends AppCompatActivity {
     TextView movieTitle, movieSubtitle, movieHall, movieDate, movieTime;
     private final ArrayList<Seat> selectedSeats = new ArrayList<>();
     Movie movie;
-    String showDate;
+    Long showDateUTC;
     int ticketPrice = 16;
+    Date today, showDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,41 +59,53 @@ public class ActivitySeatSelection extends AppCompatActivity {
         initMovieInfo();
         initSeatSelector();
         initButtonHandlers();
-
     }
 
     private void initButtonHandlers(){
         bookSeatsButton = findViewById(R.id.button_seat_selection_book_seats);
         getSnacksButton = findViewById(R.id.button_seat_selection_get_snacks);
+        if(hasMovieReleased(today, movie.getReleaseDate())) {
+            getSnacksButton.setOnClickListener(v -> {
 
-        getSnacksButton.setOnClickListener(v -> {
+                if (!selectedSeats.isEmpty()) {
+                    Intent intent = new Intent(ActivitySeatSelection.this, ActivitySnacks.class);
+                    intent.putExtra("date", showDate);
+                    intent.putExtra("movie", movie);
+                    intent.putParcelableArrayListExtra("seats", selectedSeats);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Please select a seat before proceeding", Toast.LENGTH_LONG).show();
+                }
+            });
 
-            if(!selectedSeats.isEmpty())
-            {
-                Intent intent = new Intent(ActivitySeatSelection.this, ActivitySnacks.class);
-                intent.putExtra("date", showDate);
-                intent.putExtra("movie", movie);
-                intent.putParcelableArrayListExtra("seats", selectedSeats);
-                startActivity(intent);
-            }
-            else {
-                Toast.makeText(this, "Please select a seat before proceeding", Toast.LENGTH_LONG).show();
-            }
-        });
+            bookSeatsButton.setOnClickListener(v -> {
+                if (!selectedSeats.isEmpty()) {
+                    Intent intent = new Intent(ActivitySeatSelection.this, ActivitySummary.class);
+                    intent.putExtra("date", showDate);
+                    intent.putExtra("movie", movie);
+                    intent.putParcelableArrayListExtra("seats", selectedSeats);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Please select a seat before proceeding", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else{
+            getSnacksButton.setText("Watch Trailer");
+            getSnacksButton.setOnClickListener(v -> {
 
-        bookSeatsButton.setOnClickListener(v -> {
-            if(!selectedSeats.isEmpty())
-            {
-                Intent intent = new Intent(ActivitySeatSelection.this, ActivitySummary.class);
-                intent.putExtra("date", showDate);
-                intent.putExtra("movie", movie);
-                intent.putParcelableArrayListExtra("seats", selectedSeats);
-                startActivity(intent);
-            }
-            else {
-                Toast.makeText(this, "Please select a seat before proceeding", Toast.LENGTH_LONG).show();
-            }
-        });
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(movie.getTrailerURL()));
+                try{
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(movie.getTrailerURL())));
+                }
+            });
+
+            bookSeatsButton.setText("Coming Soon");
+            bookSeatsButton.setEnabled(false);
+        }
     }
 
     private void initMovieInfo()
@@ -98,16 +117,30 @@ public class ActivitySeatSelection extends AppCompatActivity {
         movieHall = findViewById(R.id.tv_seat_selection_hall);
         movieTime = findViewById(R.id.tv_seat_selection_time);
 
-        showDate = getIntent().getStringExtra("date");
+        showDateUTC = getIntent().getLongExtra("date", 0);
         movie = getIntent().getParcelableExtra("movie");
 
-        if(movie != null && showDate != null)
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+        if(movie != null && showDateUTC != null)
         {
+            today = new Date();
+            showDate = new Date(showDateUTC);
+
             movieTitle.setText(movie.getName());
             movieSubtitle.setText(movie.getGenre() + " | " + movie.getRuntime());
-            movieDate.setText(showDate);
-            movieHall.setText(String.valueOf(movie.getCinema()));
-            movieTime.setText(movie.getShowTime());
+
+            if (hasMovieReleased(today, movie.getReleaseDate())) {
+                movieDate.setText(sdf.format(showDate));
+                movieHall.setText(String.valueOf(movie.getCinema()));
+                movieTime.setText(movie.getShowTime());
+            } else {
+                movieDate.setText(sdf.format(movie.getReleaseDate()));
+                movieHall.setText("TBD");
+                movieTime.setText("TBD");
+            }
+
+
         }
         else{
             Toast.makeText(this, "An Error Occurred. Please Try Again Later", Toast.LENGTH_LONG).show();
@@ -122,7 +155,14 @@ public class ActivitySeatSelection extends AppCompatActivity {
         int cols = 9;
         int mid = cols / 2;
 
-        List<String> bookedSeats = Arrays.asList("0-2", "1-5", "3-0");
+        List<String> bookedSeats = new ArrayList<>();
+
+        if(hasMovieReleased(today, movie.getReleaseDate()))
+        {
+            bookedSeats.add("0-2");
+            bookedSeats.add("1-5");
+            bookedSeats.add("3-0");
+        }
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
@@ -155,18 +195,26 @@ public class ActivitySeatSelection extends AppCompatActivity {
                     bg.setColor(Color.LTGRAY);
                     seat.setTag(false);
 
-                    seat.setOnClickListener(v -> {
-                        boolean selected = (boolean) seat.getTag();
-                        if (selected) {
-                            bg.setColor(Color.LTGRAY);
-                            selectedSeats.remove(currentSeat);
-                            seat.setTag(false);
-                        } else {
-                            bg.setColor(Color.GREEN);
-                            selectedSeats.add(currentSeat);
-                            seat.setTag(true);
-                        }
-                    });
+                    if(hasMovieReleased(today, movie.getReleaseDate())) {
+                        seat.setOnClickListener(v -> {
+                            boolean selected = (boolean) seat.getTag();
+                            if (selected) {
+                                bg.setColor(Color.LTGRAY);
+                                selectedSeats.remove(currentSeat);
+                                seat.setTag(false);
+                            } else {
+                                bg.setColor(Color.GREEN);
+                                selectedSeats.add(currentSeat);
+                                seat.setTag(true);
+                            }
+                        });
+                    }
+                    else{
+                        seat.setOnClickListener(v -> {
+
+                            Toast.makeText(this, "Movie Not Released Yet.", Toast.LENGTH_SHORT).show();
+                        });
+                    }
                 }
 
                 gridSeats.addView(seat);
@@ -174,4 +222,13 @@ public class ActivitySeatSelection extends AppCompatActivity {
         }
     }
 
+    private boolean hasMovieReleased(Date currentDate, Date releaseDate)
+    {
+        if(currentDate != null && releaseDate != null)
+        {
+            return currentDate.compareTo(releaseDate) >= 0;
+        }
+
+        return false;
+    }
 }

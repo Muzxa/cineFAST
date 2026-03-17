@@ -1,5 +1,6 @@
 package com.example.cinefast;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
 import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.ActivityNotFoundException;
@@ -10,19 +11,27 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.utils.widget.MockView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> {
 
     Context context;
     ArrayList<Movie> movies;
+    Long showDate;
 
     public MovieListAdapter(Context context, ArrayList<Movie> movies) {
         this.context = context;
         this.movies = movies;
+        this.showDate = new Date().getTime();
+    }
+
+    public MovieListAdapter(Context context, ArrayList<Movie> movies, Long showDate) {
+        this.context = context;
+        this.movies = movies;
+        this.showDate = showDate;
     }
 
     @NonNull
@@ -51,11 +60,15 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> 
         });
 
         holder.btnBook.setOnClickListener(v -> {
-            //TODO: IMPLEMENT
+            Intent intent = new Intent(context, ActivitySeatSelection.class);
+            intent.putExtra("date", showDate);
+            intent.putExtra("movie", movie);
+            context.startActivity(intent);
         });
     }
     @Override
     public int getItemCount() {
         return movies.size();
     }
+
 }
