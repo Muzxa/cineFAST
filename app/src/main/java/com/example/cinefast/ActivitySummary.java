@@ -1,6 +1,7 @@
 package com.example.cinefast;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -52,7 +53,18 @@ public class ActivitySummary extends AppCompatActivity {
         setBackButtonHandler();
         setSendTicketsButtonHandler();
 
+        saveToSharedPreferences();
         total.setText("$ " + String.format("%.2f", runningTotal));
+        Toast.makeText(this, "Booking Confirmed!", Toast.LENGTH_LONG).show();
+    }
+
+    private void saveToSharedPreferences() {
+        SharedPreferences preferences = getSharedPreferences("cineFAST", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString("movieName", movie.getName());
+        editor.putInt("numberOfSeats", selectedSeats.size());
+        editor.putFloat("totalPrice", (float) runningTotal);
     }
 
     private void setBackButtonHandler()
@@ -141,6 +153,8 @@ public class ActivitySummary extends AppCompatActivity {
             Toast.makeText(this, "An Error Occurred. Please try again", Toast.LENGTH_LONG).show();
             finish();
         }
+
+
     }
 
     private void fillSummaryLayout()

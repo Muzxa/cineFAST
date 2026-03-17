@@ -11,12 +11,14 @@ public class Snack implements Parcelable {
     private String description;
     private double price;
     private int quantity;
+    private int imageId;
 
-    public Snack(String name, String description, double price, int quantity) {
+    public Snack(String name, String description, double price, int quantity, int imageId) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
+        this.imageId = imageId;
     }
 
     protected Snack(Parcel in)
@@ -25,6 +27,7 @@ public class Snack implements Parcelable {
         description = in.readString();
         price = in.readDouble();
         quantity = in.readInt();
+        imageId = in.readInt();
     }
 
     public static final Parcelable.Creator<Snack> CREATOR = new Parcelable.Creator<>() {
@@ -50,6 +53,7 @@ public class Snack implements Parcelable {
         dest.writeString(description);
         dest.writeDouble(price);
         dest.writeInt(quantity);
+        dest.writeInt(imageId);
     }
 
     public int getQuantity() {
@@ -82,5 +86,13 @@ public class Snack implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 }

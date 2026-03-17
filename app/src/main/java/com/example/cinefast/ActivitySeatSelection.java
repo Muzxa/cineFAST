@@ -36,6 +36,8 @@ public class ActivitySeatSelection extends AppCompatActivity {
     int ticketPrice = 16;
     Date today, showDate;
 
+    SimpleDateFormat sdf;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +54,7 @@ public class ActivitySeatSelection extends AppCompatActivity {
 
     private void init()
     {
-
+        sdf = new SimpleDateFormat("dd-MM-yyyy");
         backButton = findViewById(R.id.button_seat_selection_back);
         backButton.setOnClickListener(v -> finish());
 
@@ -69,7 +71,7 @@ public class ActivitySeatSelection extends AppCompatActivity {
 
                 if (!selectedSeats.isEmpty()) {
                     Intent intent = new Intent(ActivitySeatSelection.this, ActivitySnacks.class);
-                    intent.putExtra("date", showDate);
+                    intent.putExtra("date", sdf.format(showDate));
                     intent.putExtra("movie", movie);
                     intent.putParcelableArrayListExtra("seats", selectedSeats);
                     startActivity(intent);
@@ -81,7 +83,7 @@ public class ActivitySeatSelection extends AppCompatActivity {
             bookSeatsButton.setOnClickListener(v -> {
                 if (!selectedSeats.isEmpty()) {
                     Intent intent = new Intent(ActivitySeatSelection.this, ActivitySummary.class);
-                    intent.putExtra("date", showDate);
+                    intent.putExtra("date", sdf.format(showDate));
                     intent.putExtra("movie", movie);
                     intent.putParcelableArrayListExtra("seats", selectedSeats);
                     startActivity(intent);
@@ -119,8 +121,6 @@ public class ActivitySeatSelection extends AppCompatActivity {
 
         showDateUTC = getIntent().getLongExtra("date", 0);
         movie = getIntent().getParcelableExtra("movie");
-
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         if(movie != null && showDateUTC != null)
         {
