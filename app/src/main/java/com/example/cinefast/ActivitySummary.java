@@ -65,6 +65,8 @@ public class ActivitySummary extends AppCompatActivity {
         editor.putString("movieName", movie.getName());
         editor.putInt("numberOfSeats", selectedSeats.size());
         editor.putFloat("totalPrice", (float) runningTotal);
+
+        editor.apply();
     }
 
     private void setBackButtonHandler()
