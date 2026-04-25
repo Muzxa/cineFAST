@@ -1,6 +1,7 @@
 package com.example.cinefast;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,8 +37,18 @@ public class ActivityOnboarding extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(ActivityOnboarding.this, ActivityMovieList.class);
-                startActivity(intent);
+                SharedPreferences preferences = getSharedPreferences(getString(R.string.shared_preferences_name), MODE_PRIVATE);
+                String email = preferences.getString("email", null);
+                boolean rememberUser = preferences.getBoolean("remember_user", false);
+
+                if(rememberUser && email != null){
+                    Intent intent = new Intent(ActivityOnboarding.this, ActivityMovieList.class);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(ActivityOnboarding.this, ActivityLogin.class);
+                    startActivity(intent);
+                }
             }
         });
     }

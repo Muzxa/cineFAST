@@ -59,7 +59,7 @@ public class ActivitySummary extends AppCompatActivity {
     }
 
     private void saveToSharedPreferences() {
-        SharedPreferences preferences = getSharedPreferences("cineFAST", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.shared_preferences_name), MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putString("movieName", movie.getName());
