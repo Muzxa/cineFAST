@@ -3,6 +3,7 @@ package com.example.cinefast;
 import static androidx.core.content.ContentProviderCompat.requireContext;
 import static androidx.core.content.ContextCompat.startActivity;
 
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -57,6 +58,24 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> 
             } catch (ActivityNotFoundException e) {
                 context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(movie.getTrailerURL())));
             }
+        });
+
+        holder.itemView.setOnLongClickListener(view -> {
+            int currentPosition = holder.getBindingAdapterPosition();
+            if (currentPosition == RecyclerView.NO_POSITION) return true;
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+            builder
+                    .setTitle("Delete Movie")
+                    .setMessage("Are you sure that you want to delete " + movie.getName())
+                    .setPositiveButton("Delete", (dialog, which) ->{
+                        movies.remove(currentPosition);
+                        notifyItemRemoved(currentPosition);
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
+            return true;
         });
 
         holder.btnBook.setOnClickListener(v -> {

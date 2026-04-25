@@ -58,10 +58,11 @@ public class FragmentNowShowing extends Fragment {
         }
 
         nowShowingRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        nowShowingRecyclerView.setAdapter(new MovieListAdapter(requireContext(), movies, showDate.atStartOfDay(ZoneId.systemDefault())
+        MovieListAdapter adapter = new MovieListAdapter(requireContext(), movies, showDate.atStartOfDay(ZoneId.systemDefault())
                 .toInstant()
                 .toEpochMilli()
-        ));
+        );
+        nowShowingRecyclerView.setAdapter(adapter);
 
         initDateRadioButtons();
     }
