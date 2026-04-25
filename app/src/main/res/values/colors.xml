@@ -3,6 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#EE0000</color>
+    <color name="login_input_bg">#2F2F2F</color>
+    <color name="login_light_grey">#E6E6E6</color>
+    <color name="login_link_blue">#007DFC</color>
+    <color name="login_checkbox_green">#23C808</color>
+    <color name="login_back_bg">#232323</color>
     <color name="navy_blue">#1A2332</color>
     <color name="silver">#FFCCCCCC</color>
     <color name="transparent">#00000000</color>
