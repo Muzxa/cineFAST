@@ -96,11 +96,15 @@ public class FragmentMovieList extends Fragment {
                 BadgeDrawable badge = tab.getOrCreateBadge();
                 badge.setNumber(nowShowing.size());
                 badge.setMaxCharacterCount(3);
+                badge.setHorizontalOffset(8);
+                badge.setVerticalOffset(8);
             } else if (position == 1) {
                 tab.setText("Coming Soon");
                 BadgeDrawable badge = tab.getOrCreateBadge();
                 badge.setNumber(comingSoon.size());
                 badge.setMaxCharacterCount(3);
+                badge.setHorizontalOffset(8);
+                badge.setVerticalOffset(8);
             }
         }).attach();
     }
