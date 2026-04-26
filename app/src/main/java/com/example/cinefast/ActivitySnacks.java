@@ -35,11 +35,9 @@ public class ActivitySnacks extends AppCompatActivity {
             return insets;
         });
 
-        snacks = new ArrayList<>();
-        snacks.add(new Snack("Hot Dogs", "Large | With Ketchup and Mustard", 7.49, 0, R.drawable.hot_dogs));
-        snacks.add(new Snack("Popcorn", "Large | Buttered", 9.99, 0, R.drawable.popcorn));
-        snacks.add(new Snack("Nachos", "Large | With Cheese and Salsa", 15.99, 0, R.drawable.nachos));
-        snacks.add(new Snack("French Fries", "Large | Salted", 5.49, 0, R.drawable.fries));
+        DatabaseManager manager = new DatabaseManager(this);
+        manager.open();
+        snacks = manager.getAllSnacks();
 
         ListView lvSnacks = findViewById(R.id.lv_snacks);
 
