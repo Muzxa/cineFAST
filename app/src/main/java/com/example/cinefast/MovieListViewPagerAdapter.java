@@ -13,6 +13,10 @@ public class MovieListViewPagerAdapter extends FragmentStateAdapter {
         super(fragmentActivity);
     }
 
+    public MovieListViewPagerAdapter(@NonNull Fragment fragment) {
+        super(fragment);
+    }
+
     @NonNull
     @Override
     public Fragment createFragment(int position) {
