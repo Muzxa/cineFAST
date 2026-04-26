@@ -1,7 +1,5 @@
 package com.example.cinefast;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +17,12 @@ import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.ArrayList;
+
 public class FragmentMovieList extends Fragment {
+
+    private static final String ARG_NOW_SHOWING = "arg_now_showing";
+    private static final String ARG_COMING_SOON = "arg_coming_soon";
 
     private TabLayout movieListTabLayout;
     private TabItem movieListTabLayoutNowShowing;
@@ -27,8 +30,40 @@ public class FragmentMovieList extends Fragment {
     private ViewPager2 movieListViewPager;
     private MovieListViewPagerAdapter movieListViewPagerAdapter;
     private Toolbar toolbarMovieList;
+    private ArrayList<Movie> nowShowing;
+    private ArrayList<Movie> comingSoon;
 
     public FragmentMovieList() {
+    }
+
+    public static FragmentMovieList newInstance(ArrayList<Movie> nowShowing, ArrayList<Movie> comingSoon) {
+        FragmentMovieList fragmentMovieList = new FragmentMovieList();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(ARG_NOW_SHOWING, nowShowing);
+        args.putParcelableArrayList(ARG_COMING_SOON, comingSoon);
+        fragmentMovieList.setArguments(args);
+        return fragmentMovieList;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        nowShowing = new ArrayList<>();
+        comingSoon = new ArrayList<>();
+
+        if (getArguments() != null) {
+            ArrayList<Movie> passedNowShowing = getArguments().getParcelableArrayList(ARG_NOW_SHOWING);
+            ArrayList<Movie> passedComingSoon = getArguments().getParcelableArrayList(ARG_COMING_SOON);
+
+            if (passedNowShowing != null) {
+                nowShowing.addAll(passedNowShowing);
+            }
+
+            if (passedComingSoon != null) {
+                comingSoon.addAll(passedComingSoon);
+            }
+        }
     }
 
     @Override
@@ -50,7 +85,7 @@ public class FragmentMovieList extends Fragment {
         movieListTabLayoutComingSoon = rootView.findViewById(R.id.movie_list_tab_layout_coming_soon);
         movieListViewPager = rootView.findViewById(R.id.movie_list_view_pager);
 
-        movieListViewPagerAdapter = new MovieListViewPagerAdapter(this);
+        movieListViewPagerAdapter = new MovieListViewPagerAdapter(this, nowShowing, comingSoon);
         movieListViewPager.setAdapter(movieListViewPagerAdapter);
     }
 
@@ -59,12 +94,12 @@ public class FragmentMovieList extends Fragment {
             if (position == 0) {
                 tab.setText("Now Showing");
                 BadgeDrawable badge = tab.getOrCreateBadge();
-                badge.setNumber(3);
+                badge.setNumber(nowShowing.size());
                 badge.setMaxCharacterCount(3);
             } else if (position == 1) {
                 tab.setText("Coming Soon");
                 BadgeDrawable badge = tab.getOrCreateBadge();
-                badge.setNumber(30000);
+                badge.setNumber(comingSoon.size());
                 badge.setMaxCharacterCount(3);
             }
         }).attach();
