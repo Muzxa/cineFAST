@@ -1,0 +1,66 @@
+{
+	"now_showing": [
+		{
+			"title": "Oppenheimer",
+			"duration": "180 mins",
+			"genre": "Thriller",
+			"rating": 1,
+			"show_time": "22:45",
+			"image_res": "oppenheimer",
+			"trailer_url": "https://www.youtube.com/watch?v=uYPbbksJxIg",
+			"release_date": "2026-02-01"
+		},
+		{
+			"title": "Whiplash",
+			"duration": "107 mins",
+			"genre": "Drama",
+			"rating": 4,
+			"show_time": "12:30",
+			"image_res": "whiplash",
+			"trailer_url": "https://www.youtube.com/watch?v=Df1xkYYbYrY",
+			"release_date": "2026-02-02"
+		},
+		{
+			"title": "The Silence of The Lambs",
+			"duration": "118 mins",
+			"genre": "Crime",
+			"rating": 12,
+			"show_time": "17:00",
+			"image_res": "silence_of_the_lambs",
+			"trailer_url": "https://www.youtube.com/watch?v=6iB21hsprAQ",
+			"release_date": "2026-02-03"
+		}
+	],
+	"coming_soon": [
+		{
+			"title": "The Dark Knight",
+			"duration": "152 mins",
+			"genre": "Action",
+			"rating": 1,
+			"show_time": "20:15",
+			"image_res": "the_dark_knight",
+			"trailer_url": "https://www.youtube.com/watch?v=EXeTwQWrcwY",
+			"release_date": "2026-12-01"
+		},
+		{
+			"title": "12 Angry Men",
+			"duration": "96 mins",
+			"genre": "Crime",
+			"rating": 12,
+			"show_time": "15:30",
+			"image_res": "twelve_angry_men",
+			"trailer_url": "https://www.youtube.com/watch?v=TEN-2uTi2c0",
+			"release_date": "2026-12-02"
+		},
+		{
+			"title": "Saving Private Ryan",
+			"duration": "169 mins",
+			"genre": "War",
+			"rating": 5,
+			"show_time": "13:00",
+			"image_res": "saving_private_ryan",
+			"trailer_url": "https://www.youtube.com/watch?v=9CiW_DgxCnQ",
+			"release_date": "2026-12-03"
+		}
+	]
+}
