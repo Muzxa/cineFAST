@@ -15,6 +15,27 @@ import androidx.core.view.WindowInsetsCompat;
 public class ActivityOnboarding extends AppCompatActivity {
 
     Button onboardingButton;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.shared_preferences_name), MODE_PRIVATE);
+        boolean firstLaunch = preferences.getBoolean("first_launch", true);
+
+        if(firstLaunch){
+            DatabaseManager manager = new DatabaseManager(this);
+            manager.open();
+            manager.insertSnack(new Snack("Hot Dogs", "Large | With Ketchup and Mustard", 7.49, 0, R.drawable.hot_dogs));
+            manager.insertSnack(new Snack("Popcorn", "Large | Buttered", 9.99, 0, R.drawable.popcorn));
+            manager.insertSnack(new Snack("Nachos", "Large | With Cheese and Salsa", 15.99, 0, R.drawable.nachos));
+            manager.insertSnack(new Snack("French Fries", "Large | Salted", 5.49, 0, R.drawable.fries));
+
+            preferences.edit().putBoolean("first_launch", false).apply();
+            manager.close();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
