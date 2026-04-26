@@ -1,6 +1,7 @@
 package com.example.cinefast;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,10 +24,23 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Locale;
+
 public class ActivityHome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout dlMain;
     Toolbar toolbar;
     NavigationView navigationDrawer;
+    private ArrayList<Movie> nowShowingMovies;
+    private ArrayList<Movie> comingSoonMovies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +58,13 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
         String email = fetchUserEmail();
         if(email == null) {logOut();}
 
+        loadMoviesFromJson();
+
         initDrawerLayout();
         initNavHeaderView(email);
 
         if (savedInstanceState == null) {
-            loadFragment(new FragmentMovieList(), "Home");
+            loadFragment(FragmentMovieList.newInstance(nowShowingMovies, comingSoonMovies), "Home");
             navigationDrawer.setCheckedItem(R.id.action_home);
         }
 
@@ -59,6 +75,8 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
         dlMain = findViewById(R.id.main);
         toolbar = findViewById(R.id.toolbar);
         navigationDrawer = findViewById(R.id.navigation_drawer);
+        nowShowingMovies = new ArrayList<>();
+        comingSoonMovies = new ArrayList<>();
     }
 
     private String fetchUserEmail() {
@@ -102,6 +120,63 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
         toggle.syncState(); /* SYNCING HAMBURGER MENU TO DRAWER */
     }
 
+    private void loadMoviesFromJson() {
+        nowShowingMovies.clear();
+        comingSoonMovies.clear();
+
+        try {
+            InputStream inputStream = getResources().openRawResource(R.raw.movies);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+            StringBuilder builder = new StringBuilder();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                builder.append(line);
+            }
+
+            reader.close();
+
+            JSONObject root = new JSONObject(builder.toString());
+            JSONArray nowShowingArray = root.getJSONArray("now_showing");
+            JSONArray comingSoonArray = root.getJSONArray("coming_soon");
+
+            for (int i = 0; i < nowShowingArray.length(); i++) {
+                nowShowingMovies.add(parseMovie(nowShowingArray.getJSONObject(i)));
+            }
+
+            for (int i = 0; i < comingSoonArray.length(); i++) {
+                comingSoonMovies.add(parseMovie(comingSoonArray.getJSONObject(i)));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to parse movies.json", e);
+        }
+    }
+
+    private Movie parseMovie(JSONObject movieObject) throws Exception {
+        String name = movieObject.getString("title");
+        String runtime = movieObject.getString("duration");
+        String genre = movieObject.getString("genre");
+        int cinema = movieObject.getInt("rating");
+        String showTime = movieObject.getString("show_time");
+        String trailerURL = movieObject.getString("trailer_url");
+        String imageName = movieObject.getString("image_res");
+        String releaseDateValue = movieObject.getString("release_date");
+
+        int posterId = getResources().getIdentifier(imageName, "drawable", getPackageName());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        return new Movie(
+                name,
+                runtime,
+                genre,
+                cinema,
+                showTime,
+                posterId,
+                trailerURL,
+                dateFormat.parse(releaseDateValue)
+        );
+    }
+
     public void loadFragment(Fragment fragment, String title) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
@@ -120,7 +195,7 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
         String selectedTitle = null;
 
         if (itemId == R.id.action_home) {
-            selectedFragment = new FragmentMovieList();
+            selectedFragment = FragmentMovieList.newInstance(nowShowingMovies, comingSoonMovies);
             selectedTitle = "Home";
         }
         else if (itemId == R.id.action_my_bookings) {
