@@ -16,7 +16,6 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -24,10 +23,33 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class FragmentNowShowing extends Fragment {
+    private static final String ARG_MOVIES = "arg_movies";
+
     RecyclerView nowShowingRecyclerView;
     ArrayList<Movie> movies;
     RadioGroup datePickerGroup;
     LocalDate showDate;
+
+    public static FragmentNowShowing newInstance(ArrayList<Movie> movies) {
+        FragmentNowShowing fragment = new FragmentNowShowing();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(ARG_MOVIES, movies);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        movies = new ArrayList<>();
+
+        if (getArguments() != null) {
+            ArrayList<Movie> passedMovies = getArguments().getParcelableArrayList(ARG_MOVIES);
+            if (passedMovies != null) {
+                movies.addAll(passedMovies);
+            }
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +58,6 @@ public class FragmentNowShowing extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_now_showing, container, false);
 
         nowShowingRecyclerView = view.findViewById(R.id.now_showing_recycler_view);
-        movies = new ArrayList<>();
 
         showDate = LocalDate.now();
         datePickerGroup = view.findViewById(R.id.rg_date_picker);
@@ -46,16 +67,6 @@ public class FragmentNowShowing extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-        try {
-            movies.add(new Movie("Oppenheimer", "180 mins", "Thriller", 1, "22:45", R.drawable.oppenheimer, "https://www.youtube.com/watch?v=uYPbbksJxIg", format.parse("2026-02-1")));
-            movies.add(new Movie("Whiplash", "107 mins", "Drama", 4, "12:30", R.drawable.whiplash, "https://www.youtube.com/watch?v=Df1xkYYbYrY", format.parse("2026-02-2")));
-            movies.add(new Movie("The Silence of The Lambs", "118 mins", "Crime", 12, "17:00", R.drawable.silence_of_the_lambs, "https://www.youtube.com/watch?v=6iB21hsprAQ", format.parse("2026-02-3")));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
 
         nowShowingRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         MovieListAdapter adapter = new MovieListAdapter(requireContext(), movies, showDate.atStartOfDay(ZoneId.systemDefault())
