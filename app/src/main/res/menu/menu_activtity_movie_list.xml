@@ -4,8 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.cinefast.ActivityMovieList">
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="Show Last Booking" />
+    <group
+        android:checkableBehavior="single"
+        >
+        <item
+            android:id="@+id/action_home"
+            android:title="Home"/>
+        >
+
+        <item
+            android:id="@+id/action_my_bookings"
+            android:title="Show Last Booking" />
+    </group>
+
+    <group
+        android:checkableBehavior="none"
+        >
+        <item
+            android:id="@+id/action_log_out"
+            android:title="Log Out"/>
+            />
+    </group>
 </menu>
