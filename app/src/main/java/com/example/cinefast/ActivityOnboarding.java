@@ -42,7 +42,7 @@ public class ActivityOnboarding extends AppCompatActivity {
                 boolean rememberUser = preferences.getBoolean("remember_user", false);
 
                 if(rememberUser && email != null){
-                    Intent intent = new Intent(ActivityOnboarding.this, ActivityMovieList.class);
+                    Intent intent = new Intent(ActivityOnboarding.this, ActivityHome.class);
                     startActivity(intent);
                 }
                 else{

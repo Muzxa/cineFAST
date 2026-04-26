@@ -93,7 +93,7 @@ public class ActivityLogin extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 cacheUserInfo(email, cbRememberMe.isChecked());
-                                Intent intent = new Intent(ActivityLogin.this, ActivityMovieList.class);
+                                Intent intent = new Intent(ActivityLogin.this, ActivityHome.class);
                                 startActivity(intent);
                                 finish();
                             } else {
