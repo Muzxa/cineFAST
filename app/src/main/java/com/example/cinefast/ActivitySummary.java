@@ -21,6 +21,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ActivitySummary extends AppCompatActivity {
 
@@ -56,6 +61,8 @@ public class ActivitySummary extends AppCompatActivity {
         saveToSharedPreferences();
         total.setText("$ " + String.format("%.2f", runningTotal));
         Toast.makeText(this, "Booking Confirmed!", Toast.LENGTH_LONG).show();
+
+        saveBookingToFirebase();
     }
 
     private void saveToSharedPreferences() {
@@ -281,6 +288,39 @@ public class ActivitySummary extends AppCompatActivity {
             }
 
         }
+    }
+
+    private void saveBookingToFirebase() {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) return;
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Parse show date + time into timestamp
+        long showTimestamp = System.currentTimeMillis();
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+            String combined = showDate + " " + movie.getShowTime();
+            showTimestamp = sdf.parse(combined).getTime();
+        } catch (Exception e) {
+            // fallback: use current time
+            showTimestamp = System.currentTimeMillis();
+        }
+
+        String seatsStr = "";
+        for (Seat s : selectedSeats) {
+            if (!seatsStr.isEmpty()) seatsStr += ",";
+            seatsStr += "R" + s.getRow() + "C" + s.getColumn();
+        }
+
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        String bookingId = firestore.collection("bookings").document(uid)
+            .collection("bookings").document().getId();
+
+        Booking booking = new Booking(bookingId, uid, movie.getName(), selectedSeats.size(), seatsStr, runningTotal, showTimestamp, movie.getPosterId());
+
+        firestore.collection("bookings").document(uid)
+            .collection("bookings").document(bookingId)
+            .set(booking);
     }
 
 }

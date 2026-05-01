@@ -1,64 +1,106 @@
 package com.example.cinefast;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentMyBookings#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
+
+import java.util.ArrayList;
+
 public class FragmentMyBookings extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerView;
+    private BookingAdapter adapter;
+    private ArrayList<Booking> bookings = new ArrayList<>();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ListenerRegistration bookingsListener;
 
-    public FragmentMyBookings() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentMyBookings.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentMyBookings newInstance(String param1, String param2) {
-        FragmentMyBookings fragment = new FragmentMyBookings();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_my_bookings, container, false);
+        recyclerView = v.findViewById(R.id.rv_my_bookings);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        adapter = new BookingAdapter(requireContext(), bookings, booking -> showCancelDialog(booking));
+        recyclerView.setAdapter(adapter);
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser() != null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
+        if (uid != null) {
+            bookingsListener = FirebaseFirestore.getInstance()
+                    .collection("bookings").document(uid)
+                    .collection("bookings")
+                    .addSnapshotListener((snapshot, error) -> {
+                        if (error != null || snapshot == null) {
+                            Toast.makeText(requireContext(), "Failed to load bookings", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        bookings.clear();
+                        for (DocumentSnapshot doc : snapshot.getDocuments()) {
+                            Booking b = doc.toObject(Booking.class);
+                            if (b != null) {
+                                b.bookingId = doc.getId();
+                                bookings.add(b);
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                    });
+        }
+
+        return v;
+    }
+
+    private void showCancelDialog(Booking booking) {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Cancel Booking")
+                .setMessage("Are you sure you want to cancel this booking?")
+                .setPositiveButton("Yes", (dialog, which) -> attemptCancel(booking))
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private void attemptCancel(Booking booking) {
+        long now = System.currentTimeMillis();
+        if (booking.showTimestamp <= now) {
+            Toast.makeText(requireContext(), "Cannot cancel past bookings", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser() != null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
+        if (uid != null && booking.bookingId != null) {
+            FirebaseFirestore.getInstance()
+                    .collection("bookings").document(uid)
+                    .collection("bookings").document(booking.bookingId)
+                    .delete()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(requireContext(), "Booking Cancelled Successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(requireContext(), "Failed to cancel booking", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_bookings, container, false);
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (bookingsListener != null) {
+            bookingsListener.remove();
+        }
     }
 }
